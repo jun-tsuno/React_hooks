@@ -3,9 +3,7 @@ import axios from "axios";
 
 const Search = () => {
     const [term, setTerm] = useState('programming');
-    const [result, setResult] = useState([]);
-
-    console.log(result);
+    const [results, setResult] = useState([]);
 
     useEffect(() => {
         const search = async () => {
@@ -23,6 +21,22 @@ const Search = () => {
         search();
     }, [term]);
 
+    const renderedResults = results.map(result => {
+        const regex = /(<([^>])+)>/gi;
+        const cleanSnippet = result.snippet.replace(regex, '');
+
+        return (
+            <div  key={result.pageid} className="item">
+                <div className="container">
+                    <div className="header">
+                        {result.title}
+                    </div>
+                    {cleanSnippet}
+                </div>
+            </div>
+        );
+    })
+
     return(
         <div>
             <div className="ui form">
@@ -34,6 +48,9 @@ const Search = () => {
                         className="input"
                     />
                 </div>
+            </div>
+            <div className="ui celled list">
+                {renderedResults}
             </div>
         </div>
     );
