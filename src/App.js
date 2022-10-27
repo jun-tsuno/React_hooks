@@ -3,6 +3,7 @@ import Accordion from "./components/Accordion";
 import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
+import Header from "./components/Header";
 import { toBeInTheDOM } from "@testing-library/jest-dom/dist/matchers";
 import Rout from "./components/Rout";
 
@@ -36,10 +37,11 @@ const options = [
     }
 ];
 
-export default () => {
+const App = () => {
     const [selected, setSelected] = useState(options[0]);
     return (
         <div>
+            <Header />
             <Rout path="/">
                 <Accordion items={items} />
             </Rout>
@@ -60,3 +62,5 @@ export default () => {
         </div>
     );
 };
+
+export default App;
